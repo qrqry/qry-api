@@ -12,11 +12,18 @@ app.use((context) => {
 })
 
 Deno.serve({ port: 1337 }, async (req) => {
-  let response = await filter(req)
-  if (response !== undefined) return response
+  try {
+    let response = await filter(req)
+    if (response !== undefined) return response
 
-  response = await app.handle(req)
-  if (response !== undefined) return response
+    response = await app.handle(req)
+    if (response !== undefined) return response
 
-  return new Response(null, { status: Status.NotFound })
+    return new Response(null, { status: Status.NotFound })
+  } catch (error) {
+    console.error(error)
+    return new Response(JSON.stringify(error), {
+      status: Status.InternalServerError,
+    })
+  }
 })

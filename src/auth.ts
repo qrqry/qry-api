@@ -1,5 +1,4 @@
 import { createGoogleOAuthConfig, createHelpers } from '@deno/kv-oauth'
-import { Router } from '@oak/oak'
 import { Status } from 'jsr:@oak/commons@1/status'
 
 const _oauthConfig = createGoogleOAuthConfig({
@@ -12,8 +11,6 @@ const _oauthConfig = createGoogleOAuthConfig({
 const { signIn, signOut, getSessionId, handleCallback } = createHelpers(
   _oauthConfig,
 )
-
-export const authRouter = new Router()
 
 export const filter = async (
   request: Request,

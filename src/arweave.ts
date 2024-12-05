@@ -1,13 +1,16 @@
 import Arweave from 'arweave'
+import { Product } from './model/Product.ts'
 
 const _arweave = Arweave.init({
-  host: 'arweave.net',
-  port: 443,
-  protocol: 'https',
+  host: Deno.env.get('ARWEAVE_HOST') ?? 'arweave.net',
+  port: Number(Deno.env.get('ARWEAVE_PORT') ?? 443),
+  protocol: Deno.env.get('ARWEAVE_PROTOCOL') ?? 'https',
 })
 const _key = JSON.parse(Deno.env.get('ARWEAVE_KEY') ?? '{}')
 
-export const saveJson = async (json: object): Promise<boolean> => {
+export const saveJson = async <P extends Product>(
+  json: P,
+): Promise<boolean> => {
   try {
     const data = JSON.stringify(json)
     const transaction = await _arweave.createTransaction({ data }, _key)

@@ -3,7 +3,7 @@ import { ProductSchema } from '../../schema/ProductSchema.ts'
 import { getRequiredEnv } from '@deno/kv-oauth'
 
 const _arweave = Arweave.init({
-  host: getRequiredEnv('ARWEAVE_HOST') ,
+  host: getRequiredEnv('ARWEAVE_HOST'),
   port: Number(getRequiredEnv('ARWEAVE_PORT')),
   protocol: getRequiredEnv('ARWEAVE_PROTOCOL'),
 })

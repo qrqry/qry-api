@@ -8,8 +8,10 @@ const COLLECTION_NAME = 'users'
 export const saveUser = async (user: UserSchema): Promise<string | null> => {
   return await withTransaction(async () => {
     const db = _mongo
-    const insertResult = await db.collection<OptionalId<UserSchema>>(COLLECTION_NAME).insertOne(user)
-    return insertResult.insertedId ?? null
+    const insertResult = await db.collection<OptionalId<UserSchema>>(
+      COLLECTION_NAME,
+    ).insertOne(user)
+    return insertResult.insertedId?.toString() ?? null
   })
 }
 

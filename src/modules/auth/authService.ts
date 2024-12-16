@@ -1,7 +1,7 @@
 import {
   createGoogleOAuthConfig,
   createHelpers,
-  getRequiredEnv
+  getRequiredEnv,
 } from '@deno/kv-oauth'
 import { Status } from 'jsr:@oak/commons@1/status'
 import { UserSchema } from '../../schema/UserSchema.ts'
@@ -50,7 +50,7 @@ export const filter = async (
       }
     }
     case '/signout': {
-      await authRepository.removeUserInfo(await getSessionId(request) ?? "")
+      await authRepository.removeUserInfo(await getSessionId(request) ?? '')
       return await signOut(request)
     }
     default: {
@@ -62,6 +62,8 @@ export const filter = async (
   }
 }
 
-export const getUserInfo = async (request: Request): Promise<UserSchema | null> => {
+export const getUserInfo = async (
+  request: Request,
+): Promise<UserSchema | null> => {
   return authRepository.getUserInfo(await getSessionId(request) ?? '')
 }

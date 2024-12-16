@@ -7,7 +7,9 @@ export const connectToDb = () => {
   return client.db(getRequiredEnv('MONGO_DB_NAME'))
 }
 
-export const withTransaction = async <T>(func: () => Promise<T>): Promise<T | null> => {
+export const withTransaction = async <T>(
+  func: () => Promise<T>,
+): Promise<T | null> => {
   const session = client.startSession()
   try {
     session.startTransaction()

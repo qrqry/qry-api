@@ -1,4 +1,4 @@
-import { client, connectToDb, withTransaction } from '../../../mongo.ts'
+import { connectToDb, withTransaction } from '../../../mongo.ts'
 import { ObjectId, OptionalId } from 'mongodb'
 import { ProductSchema } from '../../schema/ProductSchema.ts'
 
@@ -37,7 +37,7 @@ export const saveProduct = async (
     const insertResult = await db.collection<OptionalId<ProductSchema>>(
       COLLECTION_NAME,
     ).insertOne(product)
-    return insertResult.insertedId ?? null
+    return insertResult.insertedId?.toString() ?? null
   })
 }
 

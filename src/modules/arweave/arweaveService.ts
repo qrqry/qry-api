@@ -1,5 +1,5 @@
 import Arweave from 'arweave'
-import { Product } from './model/Product.ts'
+import { ProductSchema } from '../../schema/ProductSchema.ts'
 
 const _arweave = Arweave.init({
   host: Deno.env.get('ARWEAVE_HOST') ?? 'arweave.net',
@@ -8,8 +8,8 @@ const _arweave = Arweave.init({
 })
 const _key = JSON.parse(Deno.env.get('ARWEAVE_KEY') ?? '{}')
 
-export const saveJson = async <P extends Product>(
-  json: P,
+export const saveJson = async (
+  json: ProductSchema,
 ): Promise<boolean> => {
   try {
     const data = JSON.stringify(json)

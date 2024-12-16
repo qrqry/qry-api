@@ -1,12 +1,13 @@
 import { Application, Status } from '@oak/oak'
-import { filter } from './src/auth.ts'
-import { router } from './src/router.ts'
+import { filter } from './src/modules/auth/authService.ts'
+import { router } from './router.ts'
+import { contentType } from 'jsr:@std/media-types@1/content-type'
 
 const app = new Application()
 app.use(router.routes())
 app.use(router.allowedMethods())
 app.use((context) => {
-  context.response.type = 'text/html; charset=utf-8'
+  context.response.type = contentType('.html')
   context.response.status = 404
   context.response.body = '<h1>404, Page not found!</h1>'
 })

@@ -1,12 +1,13 @@
 import Arweave from 'arweave'
 import { ProductSchema } from '../../schema/ProductSchema.ts'
+import { getRequiredEnv } from '@deno/kv-oauth'
 
 const _arweave = Arweave.init({
-  host: Deno.env.get('ARWEAVE_HOST') ?? 'arweave.net',
-  port: Number(Deno.env.get('ARWEAVE_PORT') ?? 443),
-  protocol: Deno.env.get('ARWEAVE_PROTOCOL') ?? 'https',
+  host: getRequiredEnv('ARWEAVE_HOST') ,
+  port: Number(getRequiredEnv('ARWEAVE_PORT')),
+  protocol: getRequiredEnv('ARWEAVE_PROTOCOL'),
 })
-const _key = JSON.parse(Deno.env.get('ARWEAVE_KEY') ?? '{}')
+const _key = JSON.parse(getRequiredEnv('ARWEAVE_KEY'))
 
 export const saveJson = async (
   json: ProductSchema,
